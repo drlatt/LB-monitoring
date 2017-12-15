@@ -1,6 +1,4 @@
 # LB-monitoring
-test/assignment
-
 Tasks:
 1. Create a set of scripts/cookbooks/manifests/etc. that would fire up 3 virtual machines/containers of
 your choice, with OS of your choice on AWS.
