@@ -11,3 +11,9 @@ flavor of the monitoring software does not matter.
 hostname in web root
 4. Write a short explanation of your work and describe why you chose those specific technologies/tools
 instead of others available
+
+Test code
+1. Install terraform
+2. run `terraform init` in the folder containing terraform config
+3. run `terraform plan -out first` to get an idea of what exactly the code does and output it to a file called `first`
+4. run `terraform apply first` to apply the changes saved in the `test` file and create your infrastructure
