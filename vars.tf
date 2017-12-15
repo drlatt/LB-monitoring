@@ -22,3 +22,12 @@ variable "amis" {
     eu-west-1 = "ami-8fd760f6"
   }
 }
+
+variable "key_name" {
+  default = "lat_aws"
+}
+
+variable "sec_group" {
+  type    = "list"
+  default = ["sg-61baf41a"]
+}
