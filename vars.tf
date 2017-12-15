@@ -1,6 +1,8 @@
 # terraform variables
 
+#aws_access_key and aws_secret_key have their values stored in the terraform.tfvars file
 variable "aws_access_key" {}
+
 variable "aws_secret_key" {}
 
 variable "aws_region" {
