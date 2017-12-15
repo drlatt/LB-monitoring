@@ -17,3 +17,4 @@ Test code
 2. run `terraform init` in the folder containing terraform config
 3. run `terraform plan -out first` to get an idea of what exactly the code does and output it to a file called `first`
 4. run `terraform apply first` to apply the changes saved in the `test` file and create your infrastructure
+5. run `terraform destroy` to delete all resources created so we don't incur unnecessary cost
