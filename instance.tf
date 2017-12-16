@@ -30,10 +30,12 @@ resource "aws_instance" "LB" {
 }
 
 #add a static IP address to the LB instance
-resource "aws_eip" "ip" {
+resource "aws_eip" "lb" {
   instance = "${aws_instance.LB.id}"
 }
 
+###############################################################################
+###############################################################################
 #server1
 resource "aws_instance" "server1" {
   ami             = "${lookup(var.amis, var.aws_region)}"
@@ -63,6 +65,13 @@ resource "aws_instance" "server1" {
   }
 }
 
+#add a static IP address to the LB instance
+resource "aws_eip" "server1" {
+  instance = "${aws_instance.server1.id}"
+}
+
+###############################################################################
+###############################################################################
 #server2
 resource "aws_instance" "server2" {
   ami             = "${lookup(var.amis, var.aws_region)}"
@@ -90,4 +99,9 @@ resource "aws_instance" "server2" {
     user        = "ubuntu"
     private_key = "${file("~/Documents/personal/lat_aws")}"
   }
+}
+
+#add a static IP address to the LB instance
+resource "aws_eip" "server2" {
+  instance = "${aws_instance.server2.id}"
 }
