@@ -19,8 +19,8 @@ resource "aws_instance" "LB" {
     destination = "/tmp/default"
   }
 
-  #use the remote_exec provisioner to run commands on the remote resource
-  #install nginx
+  #use the remote_exec provisioner to run commands on the remote instance
+  #install nginx and copy nginx file
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
@@ -28,7 +28,7 @@ resource "aws_instance" "LB" {
     ]
   }
 
-  #configure how the provisioner connects to the resource
+  #configure how the provisioner connects to the remote instance
   connection {
     type        = "ssh"
     user        = "ubuntu"
@@ -67,7 +67,7 @@ resource "aws_instance" "server1" {
     source      = "nginx_files/server1/index.html"
     destination = "/tmp/index.html"
   }
-  #use the remote_exec provisioner to run commands on the remote resource
+  #use the remote_exec provisioner to run commands on the remote instance
   #install nginx
   #copy files from tmp to correct locations
   #assign correct permissions to folders
@@ -78,7 +78,7 @@ resource "aws_instance" "server1" {
       "sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 777 /var/www/html",
     ]
   }
-  #configure how the provisioner connects to the resource
+  #configure how the provisioner connects to the remote instance
   connection {
     type        = "ssh"
     user        = "ubuntu"
@@ -117,7 +117,7 @@ resource "aws_instance" "server2" {
     source      = "nginx_files/server2/index.html"
     destination = "/tmp/index.html"
   }
-  #use the remote_exec provisioner to run commands on the remote resource
+  #use the remote_exec provisioner to run commands on the remote instance
   #install nginx
   #copy files from tmp to correct locations
   #assign correct permissions to folders
@@ -128,7 +128,7 @@ resource "aws_instance" "server2" {
       "sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 777 /var/www/html",
     ]
   }
-  #configure how the provisioner connects to the resource
+  #configure how the provisioner connects to the remote instance
   connection {
     type        = "ssh"
     user        = "ubuntu"
