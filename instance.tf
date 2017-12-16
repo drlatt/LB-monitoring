@@ -30,9 +30,9 @@ resource "aws_instance" "LB" {
 }
 
 #add a static IP address to the LB instance
-resource "aws_eip" "lb" {
+/*resource "aws_eip" "lb" {
   instance = "${aws_instance.LB.id}"
-}
+}*/
 
 ###############################################################################
 ###############################################################################
@@ -65,10 +65,10 @@ resource "aws_instance" "server1" {
   }
 }
 
-#add a static IP address to the LB instance
-resource "aws_eip" "server1" {
+#add a static IP address to the server1 instance
+/*resource "aws_eip" "server1" {
   instance = "${aws_instance.server1.id}"
-}
+}*/
 
 ###############################################################################
 ###############################################################################
@@ -101,7 +101,8 @@ resource "aws_instance" "server2" {
   }
 }
 
-#add a static IP address to the LB instance
-resource "aws_eip" "server2" {
+#add a static IP address to the server2 instance
+/*resource "aws_eip" "server2" {
   instance = "${aws_instance.server2.id}"
-}
+}*/
+
