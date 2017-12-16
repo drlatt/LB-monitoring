@@ -13,11 +13,18 @@ resource "aws_instance" "LB" {
     Name = "LB"
   }
 
+  #copy nginx file
+  provisioner "file" {
+    source      = "nginx_files/lb/default"
+    destination = "/tmp/default"
+  }
+
   #use the remote_exec provisioner to run commands on the remote resource
   #install nginx
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
+      "sudo cp /tmp/default /etc/nginx/sites-available",
     ]
   }
 

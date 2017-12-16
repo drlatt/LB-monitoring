@@ -1,0 +1,12 @@
+upstream monitapp {
+        server server1.lat.com weight=1;
+        server server2.lat.com weight=1;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://monitapp;
+        }
+}
