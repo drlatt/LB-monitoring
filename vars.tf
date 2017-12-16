@@ -1,6 +1,7 @@
 # terraform variables
 
 #aws_access_key and aws_secret_key have their values stored in the terraform.tfvars file
+#you should create your own terraform.tfvars file to store this values
 variable "aws_access_key" {}
 
 variable "aws_secret_key" {}
@@ -30,4 +31,8 @@ variable "key_name" {
 variable "sec_group" {
   type    = "list"
   default = ["sg-61baf41a"]
+}
+
+variable "ssh_key_file" {
+  default = ""
 }
