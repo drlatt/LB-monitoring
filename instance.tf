@@ -50,11 +50,25 @@ resource "aws_instance" "server1" {
   tags {
     Name = "server1"
   }
+  #copy default site file
+  provisioner "file" {
+    source      = "nginx_files/server1/default"
+    destination = "/tmp/default"
+  }
+  #copy index.html file
+  provisioner "file" {
+    source      = "nginx_files/server1/index.html"
+    destination = "/tmp/index.html"
+  }
   #use the remote_exec provisioner to run commands on the remote resource
   #install nginx
+  #copy files from tmp to correct locations
+  #assign correct permissions to folders
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
+      "sudo cp /tmp/default /etc/nginx/sites-available && sudo cp /tmp/index.html /var/www/html",
+      "sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 777 /var/www/html",
     ]
   }
   #configure how the provisioner connects to the resource
@@ -86,11 +100,25 @@ resource "aws_instance" "server2" {
   tags {
     Name = "server2"
   }
+  #copy default site file
+  provisioner "file" {
+    source      = "nginx_files/server2/default"
+    destination = "/tmp/default"
+  }
+  #copy index.html file
+  provisioner "file" {
+    source      = "nginx_files/server2/index.html"
+    destination = "/tmp/index.html"
+  }
   #use the remote_exec provisioner to run commands on the remote resource
   #install nginx
+  #copy files from tmp to correct locations
+  #assign correct permissions to folders
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
+      "sudo cp /tmp/default /etc/nginx/sites-available && sudo cp /tmp/index.html /var/www/html",
+      "sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 777 /var/www/html",
     ]
   }
   #configure how the provisioner connects to the resource
