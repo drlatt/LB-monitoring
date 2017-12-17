@@ -37,7 +37,7 @@ resource "aws_instance" "LB" {
   }
 
   #use the remote_exec provisioner to run commands on the remote instance
-  #install nginx and copy nginx file, prometheus, node_exporter
+  #install nginx and copy nginx file, install prometheus and node_exporter
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
