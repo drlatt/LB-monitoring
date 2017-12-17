@@ -19,11 +19,29 @@ resource "aws_instance" "LB" {
     destination = "/tmp/default"
   }
 
+  #copy script to setup node exporter
+  provisioner "file" {
+    source      = "scripts/node_exporter_setup.sh"
+    destination = "/tmp/node_exporter_setup.sh"
+  }
+
+  #copy prometheus setup and startup scripts
+  provisioner "file" {
+    source      = "scripts/prometheus_setup.sh"
+    destination = "/tmp/prometheus_setup.sh"
+  }
+
+  provisioner "file" {
+    source      = "scripts/prometheus_start.sh"
+    destination = "/tmp/prometheus_start.sh"
+  }
+
   #use the remote_exec provisioner to run commands on the remote instance
-  #install nginx and copy nginx file
+  #install nginx and copy nginx file, prometheus, node_exporter
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
+      "sudo bash /tmp/prometheus_setup.sh && sudo bash /tmp/node_exporter_setup.sh && sudo bash /tmp/prometheus_start.sh",
       "sudo cp /tmp/default /etc/nginx/sites-available",
     ]
   }
@@ -67,15 +85,22 @@ resource "aws_instance" "server1" {
     source      = "nginx_files/server1/index.html"
     destination = "/tmp/index.html"
   }
+  #copy node_exporter script to server
+  provisioner "file" {
+    source      = "scripts/node_exporter_setup.sh"
+    destination = "/tmp/node_exporter_setup.sh"
+  }
   #use the remote_exec provisioner to run commands on the remote instance
   #install nginx
   #copy files from tmp to correct locations
   #assign correct permissions to folders
+  #install node_exporter to send metrics to prometheus server
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
       "sudo cp /tmp/default /etc/nginx/sites-available && sudo cp /tmp/index.html /var/www/html",
       "sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 777 /var/www/html",
+      "sudo bash /tmp/node_exporter_setup.sh",
     ]
   }
   #configure how the provisioner connects to the remote instance
@@ -117,15 +142,22 @@ resource "aws_instance" "server2" {
     source      = "nginx_files/server2/index.html"
     destination = "/tmp/index.html"
   }
+  #copy node_exporter script to server
+  provisioner "file" {
+    source      = "scripts/node_exporter_setup.sh"
+    destination = "/tmp/node_exporter_setup.sh"
+  }
   #use the remote_exec provisioner to run commands on the remote instance
   #install nginx
   #copy files from tmp to correct locations
   #assign correct permissions to folders
+  #install node_exporter to send metrics to prometheus server
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update && sudo apt-get install nginx -y",
       "sudo cp /tmp/default /etc/nginx/sites-available && sudo cp /tmp/index.html /var/www/html",
       "sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 777 /var/www/html",
+      "sudo bash /tmp/node_exporter_setup.sh",
     ]
   }
   #configure how the provisioner connects to the remote instance
