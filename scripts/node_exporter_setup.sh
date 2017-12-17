@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#This script installs node exporter
 version="${VERSION:-0.14.0}"
 arch="${ARCH:-linux-amd64}"
 bin_dir="${BIN_DIR:-/usr/local/bin}"
