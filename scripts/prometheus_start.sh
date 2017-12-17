@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#This script configures prometheus and starts the prometheus process in the background
 cd ~/Prometheus/server
 
 cat <<DOH >> prometheus.yml
