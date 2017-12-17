@@ -55,9 +55,9 @@ resource "aws_instance" "LB" {
 }
 
 #add a static IP address to the LB instance
-/*resource "aws_eip" "lb" {
+resource "aws_eip" "lb" {
   instance = "${aws_instance.LB.id}"
-}*/
+}
 
 ###############################################################################
 ###############################################################################
@@ -69,27 +69,31 @@ resource "aws_instance" "server1" {
   key_name        = "${var.key_name}"
   security_groups = "${var.sec_group}"
 
-  #availability_zone = "eu-west-1a"
+  availability_zone = "eu-west-1a"
 
   #assign a name tag to instance
   tags {
     Name = "server1"
   }
+
   #copy default site file
   provisioner "file" {
     source      = "nginx_files/server1/default"
     destination = "/tmp/default"
   }
+
   #copy index.html file
   provisioner "file" {
     source      = "nginx_files/server1/index.html"
     destination = "/tmp/index.html"
   }
+
   #copy node_exporter script to server
   provisioner "file" {
     source      = "scripts/node_exporter_setup.sh"
     destination = "/tmp/node_exporter_setup.sh"
   }
+
   #use the remote_exec provisioner to run commands on the remote instance
   #install nginx
   #copy files from tmp to correct locations
@@ -103,6 +107,7 @@ resource "aws_instance" "server1" {
       "sudo bash /tmp/node_exporter_setup.sh",
     ]
   }
+
   #configure how the provisioner connects to the remote instance
   connection {
     type        = "ssh"
@@ -112,9 +117,9 @@ resource "aws_instance" "server1" {
 }
 
 #add a static IP address to the server1 instance
-/*resource "aws_eip" "server1" {
+resource "aws_eip" "server1" {
   instance = "${aws_instance.server1.id}"
-}*/
+}
 
 ###############################################################################
 ###############################################################################
@@ -126,27 +131,31 @@ resource "aws_instance" "server2" {
   key_name        = "${var.key_name}"
   security_groups = "${var.sec_group}"
 
-  #availability_zone = "eu-west-1b"
+  availability_zone = "eu-west-1b"
 
   #assign a name tag to instance
   tags {
     Name = "server2"
   }
+
   #copy default site file
   provisioner "file" {
     source      = "nginx_files/server2/default"
     destination = "/tmp/default"
   }
+
   #copy index.html file
   provisioner "file" {
     source      = "nginx_files/server2/index.html"
     destination = "/tmp/index.html"
   }
+
   #copy node_exporter script to server
   provisioner "file" {
     source      = "scripts/node_exporter_setup.sh"
     destination = "/tmp/node_exporter_setup.sh"
   }
+
   #use the remote_exec provisioner to run commands on the remote instance
   #install nginx
   #copy files from tmp to correct locations
@@ -160,6 +169,7 @@ resource "aws_instance" "server2" {
       "sudo bash /tmp/node_exporter_setup.sh",
     ]
   }
+
   #configure how the provisioner connects to the remote instance
   connection {
     type        = "ssh"
@@ -169,7 +179,6 @@ resource "aws_instance" "server2" {
 }
 
 #add a static IP address to the server2 instance
-/*resource "aws_eip" "server2" {
+resource "aws_eip" "server2" {
   instance = "${aws_instance.server2.id}"
-}*/
-
+}
