@@ -10,9 +10,10 @@ hostname in web root
 4. Write a short explanation of your work and describe why you chose those specific technologies/tools
 instead of others available
 
-Test code
-1. Install terraform
-2. run `terraform init` in the folder containing terraform config
-3. run `terraform plan -out first` to get an idea of what exactly the code does and output it to a file called `first`
-4. run `terraform apply first` to apply the changes saved in the `test` file and create your infrastructure
-5. run `terraform destroy` to delete all resources created so we don't incur unnecessary cost
+How to test the code
+1. Create a terraform.tfvars file to store aws_access_key and aws_secret_key
+2. Install terraform
+3. run `terraform init` in the folder containing terraform config
+4. run `terraform plan -out first` to get an idea of what exactly the code does and output it to a file called `first`
+5. run `terraform apply first` to apply the changes saved in the `test` file and create your infrastructure
+6. run `terraform destroy` to delete all resources created so we don't incur unnecessary cost
