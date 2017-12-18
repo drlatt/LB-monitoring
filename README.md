@@ -11,7 +11,7 @@ hostname in web root
 instead of others available
 
 How to test the code
-1. Create a terraform.tfvars file to store aws_access_key and aws_secret_key
+1. Create a terraform.tfvars file to store values for the aws_access_key and aws_secret_key
 2. Install terraform
 3. run `terraform init` in the folder containing terraform config
 4. run `terraform plan -out first` to get an idea of what exactly the code does and output it to a file called `first`
