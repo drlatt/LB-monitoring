@@ -63,6 +63,8 @@ resource "aws_eip" "lb" {
 ###############################################################################
 #server1
 resource "aws_instance" "server1" {
+  #name = "server${count.index + 1}" #yields server1, server2, server3
+  #count = 2
   ami             = "${lookup(var.amis, var.aws_region)}"
   instance_type   = "t2.micro"
   subnet_id       = "${var.aws_subnet_id}"
